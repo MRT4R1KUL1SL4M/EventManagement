@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="flex justify-between items-center mb-8">
+    <h1 class="text-4xl font-bold">Upcoming Events</h1>
+    <form method="GET" action="{{ url_for('dashboard') }}" class="flex items-center space-x-2">
+        <select name="category" class="p-2 border rounded-md">
+            <option value="">All Categories</option>
+            {% for cat in categories %}
+            <option value="{{ cat.id }}" {% if request.args.get('category') == cat.id|string %}selected{% endif %}>{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Filter</button>
+    </form>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% for event in events %}
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
+        <a href="{{ url_for('event_detail', id=event.id) }}">
+            <img src="{{ event.image_url or 'https://placehold.co/600x400/e2e8f0/333?text=Event' }}" alt="{{ event.name }}" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <p class="text-sm text-blue-500 font-semibold">{{ event.category_name or 'General' }}</p>
+                <h3 class="text-2xl font-bold mt-2 mb-2">{{ event.name }}</h3>
+                <p class="text-gray-600 text-sm mb-4"><span class="font-semibold">Venue:</span> {{ event.venue_name or 'TBD' }}</p>
+                <p class="text-gray-800 font-semibold">{{ event.start_time.strftime('%d %B, %Y') }}</p>
+            </div>
+        </a>
+    </div>
+    {% else %}
+    <p class="col-span-3 text-center text-gray-500">No events have been added yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

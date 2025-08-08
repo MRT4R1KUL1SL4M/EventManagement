@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evently -Event Management</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="{{ url_for('home') }}" class="text-3xl font-bold text-blue-600">Evently</a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="{{ url_for('home') }}" class="text-gray-600 hover:text-blue-600">Home</a>
+                    <a href="{{ url_for('dashboard') }}" class="text-gray-600 hover:text-blue-600">Events</a>
+                    {% if session.logged_in %}
+                        <a href="{{ url_for('my_bookings') }}" class="text-gray-600 hover:text-blue-600">My Bookings</a>
+                        {% if session.role == 'admin' %}
+                            <a href="{{ url_for('admin_dashboard') }}" class="text-gray-600 hover:text-blue-600">Admin Panel</a>
+                        {% endif %}
+                        <div class="relative">
+                            <button class="flex items-center space-x-2">
+                                <span class="font-medium">{{ session.fullname }}</span>
+                            </button>
+                        </div>
+                         <a href="{{ url_for('profile') }}" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">Profile</a>
+                        <a href="{{ url_for('logout') }}" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="text-gray-600 hover:text-blue-600">Login</a>
+                        <a href="{{ url_for('register') }}" class="ml-4 px-5 py-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition duration-300">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="p-4 mb-6 text-sm rounded-lg
+                        {% if category == 'success' %} bg-green-100 text-green-800
+                        {% elif category == 'danger' %} bg-red-100 text-red-800
+                        {% else %} bg-yellow-100 text-yellow-800 {% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block body %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2025 Evently.All Rights Reserved.A project by Razia Rahman</p>
+        </div>
+    </footer>
+
+</body>
+</html>

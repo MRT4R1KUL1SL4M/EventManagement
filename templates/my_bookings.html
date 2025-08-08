@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block body %}
+<h1 class="text-4xl font-bold mb-8">My Bookings</h1>
+<div class="bg-white rounded-lg shadow-md overflow-x-auto">
+    <table class="w-full text-left">
+        <thead class="bg-gray-200">
+            <tr>
+                <th class="px-6 py-3">Event Name</th>
+                <th class="px-6 py-3">Ticket Type</th>
+                <th class="px-6 py-3">Quantity</th>
+                <th class="px-6 py-3">Total Price</th>
+                <th class="px-6 py-3">Status</th>
+                <th class="px-6 py-3">Booking Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr class="border-b">
+                <td class="px-6 py-4 font-semibold">{{ booking.event_name }}</td>
+                <td class="px-6 py-4">{{ booking.ticket_type }}</td>
+                <td class="px-6 py-4">{{ booking.quantity }}</td>
+                <td class="px-6 py-4">BDT {{ "%.2f"|format(booking.total_price) }}</td>
+                <td class="px-6 py-4">
+                    <span class="px-3 py-1 text-sm font-semibold rounded-full
+                        {% if booking.status == 'confirmed' %} bg-green-200 text-green-800 {% else %} bg-yellow-200 text-yellow-800 {% endif %}">
+                        {{ booking.status|capitalize }}
+                    </span>
+                </td>
+                <td class="px-6 py-4">{{ booking.booked_at.strftime('%d %b, %Y') }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-center py-6 text-gray-500">You haven't booked any tickets yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

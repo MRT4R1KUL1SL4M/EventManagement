@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block body %}
+<h1 class="text-4xl font-bold mb-8">Admin Dashboard</h1>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Manage Events -->
+    <a href="{{ url_for('admin_events') }}" class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+        <h2 class="text-2xl font-bold text-blue-600">Manage Events</h2>
+        <p class="text-gray-600 mt-2">Add, edit, or delete events.</p>
+    </a>
+    <!-- Manage Bookings -->
+    <a href="{{ url_for('admin_bookings') }}" class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+        <h2 class="text-2xl font-bold text-green-600">View Bookings</h2>
+        <p class="text-gray-600 mt-2">View all user ticket bookings.</p>
+    </a>
+    <!-- Manage Users (Future) -->
+    <div class="bg-gray-200 p-6 rounded-lg shadow-inner">
+        <h2 class="text-2xl font-bold text-gray-500">Manage Users</h2>
+        <p class="text-gray-500 mt-2">(Feature coming soon)</p>
+    </div>
+</div>
+{% endblock %}

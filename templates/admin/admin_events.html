@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="flex justify-between items-center mb-8">
+    <h1 class="text-4xl font-bold">Manage Events</h1>
+    <a href="{{ url_for('add_event') }}" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-semibold">Add New Event</a>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-x-auto">
+    <table class="w-full text-left">
+        <thead class="bg-gray-200">
+            <tr>
+                <th class="px-6 py-3">Name</th>
+                <th class="px-6 py-3">Date</th>
+                <th class="px-6 py-3">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr class="border-b">
+                <td class="px-6 py-4 font-semibold">{{ event.name }}</td>
+                <td class="px-6 py-4">{{ event.start_time.strftime('%d %b, %Y') }}</td>
+                <td class="px-6 py-4">
+                    <a href="#" class="text-blue-600 hover:underline">Edit</a>
+                    <a href="#" class="text-red-600 hover:underline ml-4">Delete</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3" class="text-center py-4">No events found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

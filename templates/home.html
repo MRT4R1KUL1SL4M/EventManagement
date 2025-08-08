@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="text-center py-16 bg-white rounded-xl shadow-2xl">
+    <h1 class="text-5xl font-bold mb-4 text-gray-800">Welcome to Evently!</h1>
+    <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">From concerts to conferences, find your next passion.</p>
+    <div class="space-x-4">
+        <a href="{{ url_for('dashboard') }}" class="bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 text-lg font-semibold transition duration-300 transform hover:scale-105">Browse Events</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,5 @@
+Flask
+Flask-MySQLdb
+passlib
+PyYAML
+gunicorn
